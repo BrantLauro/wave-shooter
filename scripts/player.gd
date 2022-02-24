@@ -5,6 +5,12 @@ var mov = Vector2.ZERO
 var shoot = preload("res://scenes/shoot.tscn")
 var reloaded = true
 
+func _ready():
+	Global.player = self
+
+func _exit_tree():
+	Global.player = null
+
 func _process(delta: float):
 	mov.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
 	mov.y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
@@ -14,7 +20,6 @@ func _process(delta: float):
 		Global.instance_node(shoot, global_position, Global.child_node_creation)
 		reloaded = false
 		$ReloadTimer.start()
-
 
 func _on_ReloadTimer_timeout():
 	reloaded = true
