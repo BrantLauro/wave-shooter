@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/arena.gd" type="Script" id=2]
+[ext_resource path="res://assets/Font.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://scripts/points.gd" type="Script" id=4]
+[ext_resource path="res://scripts/camera2D.gd" type="Script" id=5]
+[ext_resource path="res://scripts/high_score.gd" type="Script" id=6]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -9,6 +13,15 @@ glow_enabled = true
 glow_bloom = 0.5
 glow_blend_mode = 0
 glow_bicubic_upscale = true
+
+[sub_resource type="DynamicFont" id=2]
+size = 60
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 40
+font_data = ExtResource( 3 )
 
 [node name="Arena" type="Node2D"]
 script = ExtResource( 2 )
@@ -20,6 +33,48 @@ position = Vector2( 320, 180 )
 environment = SubResource( 1 )
 
 [node name="TimerEnemySpawn" type="Timer" parent="."]
+wait_time = 3.0
 autostart = true
 
+[node name="DifficultyTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="UI" type="Node2D" parent="."]
+z_index = 20
+
+[node name="Control" type="Control" parent="UI"]
+margin_right = 640.0
+margin_bottom = 360.0
+
+[node name="Points" type="Label" parent="UI/Control"]
+margin_right = 640.0
+margin_bottom = 131.0
+custom_fonts/font = SubResource( 2 )
+text = "0
+"
+align = 1
+valign = 1
+script = ExtResource( 4 )
+
+[node name="HighScore" type="Label" parent="UI/Control"]
+margin_left = 3.0
+margin_top = 267.0
+margin_right = 643.0
+margin_bottom = 398.0
+custom_fonts/font = SubResource( 3 )
+text = "0
+"
+align = 1
+valign = 1
+script = ExtResource( 6 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 320, 180 )
+current = true
+script = ExtResource( 5 )
+
+[node name="TimerCamera" type="Timer" parent="Camera2D"]
+
 [connection signal="timeout" from="TimerEnemySpawn" to="." method="_on_TimerEnemySpawn_timeout"]
+[connection signal="timeout" from="DifficultyTimer" to="." method="_on_DifficultyTimer_timeout"]
+[connection signal="timeout" from="Camera2D/TimerCamera" to="Camera2D" method="_on_TimerCamera_timeout"]

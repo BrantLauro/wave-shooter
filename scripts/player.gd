@@ -15,6 +15,8 @@ func _exit_tree():
 func _process(delta: float):
 	mov.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
 	mov.y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
+	global_position.x = clamp(global_position.x, 24, 616)
+	global_position.y = clamp(global_position.y, 24, 336)
 	if dead == false:
 		global_position += speed * mov * delta
 	
