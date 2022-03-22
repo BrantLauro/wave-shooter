@@ -16,7 +16,7 @@ func _process(delta : float):
 		rand_range(-camera_shake_intensity, camera_shake_intensity)) * delta
 
 func shake_screen(intensity, time):
-	zoom = Vector2(1,1) - Vector2(intensity * 0.02, intensity * 0.02)
+	zoom = Vector2(1,1) - Vector2(intensity * -0.002, intensity * -0.002)
 	camera_shake_intensity = intensity
 	$TimerCamera.wait_time = time
 	$TimerCamera.start()
