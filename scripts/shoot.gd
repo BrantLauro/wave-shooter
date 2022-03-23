@@ -3,6 +3,7 @@ extends Sprite
 var mov = Vector2(1,0)
 var speed = 250
 var unique_dir = true
+var danage
 
 func _process(delta: float):
 	if unique_dir:

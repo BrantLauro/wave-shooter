@@ -32,7 +32,7 @@ func _on_HitBox_area_entered(area: Area2D):
 		area.get_parent().queue_free()
 		mov = -mov * knockback
 		dizzy = true
-		hp -= 1
+		hp -= area.get_parent().danage
 		$BreathTimer.start()
 
 func _on_BreathTimer_timeout():

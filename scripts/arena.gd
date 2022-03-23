@@ -1,6 +1,7 @@
 extends Node2D
 
 export(Array, PackedScene) var enemies
+export(Array, PackedScene) var powers
 
 func _ready():
 	Global.child_node_creation = self
@@ -19,3 +20,8 @@ func _on_TimerEnemySpawn_timeout():
 func _on_DifficultyTimer_timeout():
 	if $TimerEnemySpawn.wait_time > 0.50:
 		$TimerEnemySpawn.wait_time -= 0.25
+
+func _on_TimerPowerSpawn_timeout():
+	var power_position = Vector2(rand_range(0,640), rand_range(0,320))
+	var power_amount = round(rand_range(-1, powers.size() -1))
+	Global.instance_node(powers[power_amount], power_position, self)

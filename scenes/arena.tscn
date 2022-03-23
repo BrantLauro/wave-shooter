@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/arena.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://scripts/high_score.gd" type="Script" id=6]
 [ext_resource path="res://scenes/enemy_1.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/enemy_2.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/power_up_reload.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/power_up_danage.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -28,6 +30,7 @@ font_data = ExtResource( 3 )
 [node name="Arena" type="Node2D"]
 script = ExtResource( 2 )
 enemies = [ ExtResource( 7 ), ExtResource( 8 ) ]
+powers = [ ExtResource( 9 ), ExtResource( 10 ) ]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 320, 180 )
@@ -40,6 +43,10 @@ wait_time = 3.0
 autostart = true
 
 [node name="DifficultyTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="TimerPowerSpawn" type="Timer" parent="."]
+wait_time = 10.0
 autostart = true
 
 [node name="UI" type="Node2D" parent="."]
@@ -80,4 +87,5 @@ script = ExtResource( 5 )
 
 [connection signal="timeout" from="TimerEnemySpawn" to="." method="_on_TimerEnemySpawn_timeout"]
 [connection signal="timeout" from="DifficultyTimer" to="." method="_on_DifficultyTimer_timeout"]
+[connection signal="timeout" from="TimerPowerSpawn" to="." method="_on_TimerPowerSpawn_timeout"]
 [connection signal="timeout" from="Camera2D/TimerCamera" to="Camera2D" method="_on_TimerCamera_timeout"]
