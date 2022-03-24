@@ -11,3 +11,4 @@ func _on_HitBox_area_entered(area: Area2D):
 		area.get_parent().get_node("ReloadTimerCooldown").start()
 		area.get_parent().reset_power.append(name)
 		queue_free()
+		area.get_parent().modulate = Color.green

@@ -18,6 +18,7 @@ func _ready():
 	Global.player = self
 	connect("change_lives", get_parent().get_node("UI/Control"), "on_change_lives")
 	emit_signal("change_lives", max_lives)
+	Global.danage_texture = get_parent().get_node("UI/Control/DanageTexture")
 
 func _exit_tree():
 	Global.player = null
@@ -44,13 +45,18 @@ func _on_HitBox_area_entered(area: Area2D):
 	if area.is_in_group("enemy"):
 		lives -= 1
 		emit_signal("change_lives", lives)
+		Global.danage_texture.show()
+		yield(get_tree().create_timer(0.1), "timeout")
+		Global.danage_texture.hide()
 	if lives <= 0:
 		visible = false
 		dead = true
 		yield(get_tree().create_timer(1), "timeout")
-		get_tree().reload_current_scene()
+		get_tree().change_scene("res://scenes/start_screen.tscn")
+		Global.save_game()
 
 func _on_ReloadTimerCooldown_timeout():
+	modulate = Color("2271d7")
 	if reset_power.find("ReloadTimer") != null:
 		reload_time = standard_reload_time
 		reset_power.erase("ReloadTimer")

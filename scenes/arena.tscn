@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/arena.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scenes/power_up_danage.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/Lives.png" type="Texture" id=11]
 [ext_resource path="res://scripts/control.gd" type="Script" id=12]
+[ext_resource path="res://assets/damage-bg.png" type="Texture" id=13]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -35,7 +36,6 @@ enemies = [ ExtResource( 7 ), ExtResource( 8 ) ]
 powers = [ ExtResource( 9 ), ExtResource( 10 ) ]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-modulate = Color( 0.133333, 0.443137, 0.843137, 1 )
 position = Vector2( 320, 180 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -91,6 +91,12 @@ margin_bottom = 40.0
 texture = ExtResource( 11 )
 expand = true
 stretch_mode = 2
+
+[node name="DanageTexture" type="TextureRect" parent="UI/Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 13 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 320, 180 )
