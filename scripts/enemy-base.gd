@@ -3,14 +3,15 @@ extends Sprite
 export(int) var speed = 75
 export(int) var knockback = 600
 export(int) var hp = 3
+export(int) var points = 10
 onready var actual_color = modulate
 var mov = Vector2.ZERO
 var dizzy = false
 var blood_particle = preload("res://scenes/blood_particle.tscn")
 
-func _process(delta: float):
+func _process(_delta):
 	if hp <= 0 and Global.child_node_creation != null:
-		Global.points += 10
+		Global.points += points
 		if Global.camera != null:
 			Global.camera.shake_screen(50, 0.1)
 		var blood_particle_instance = Global.instance_node(blood_particle, global_position, Global.child_node_creation)
